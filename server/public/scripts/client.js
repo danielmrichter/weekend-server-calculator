@@ -1,30 +1,31 @@
 console.log('client.js is sourced!');
 let numOne = document.getElementById(`numOne`)
 let numTwo = document.getElementById(`numTwo`)
-let currentOperator = document.getElementById(`current-operator`)
+let currentOperator
 
 function plusButton(event){
     event.preventDefault()
-    currentOperator.innerText = `+`
+    currentOperator = `+`
 }
 function minusButton(event){
     event.preventDefault()
-    currentOperator.innerText = `-`
+    currentOperator = `-`
 }
 function multiplyButton(event){
     event.preventDefault()
-    currentOperator.innerText = `*`
+    currentOperator = `*`
 }
 function divideButton(event){
     event.preventDefault()
-    currentOperator.innerText = `/`
+    currentOperator = `/`
 }
 function equalsButton(event){
     event.preventDefault()
     //run a safety check here? Check stretch goal first
     // gather the data 
-    let objectToPost = {calculation: numOne.value + currentOperator.innerText + numTwo.value}
+    let objectToPost = {calculation: numOne.value + currentOperator + numTwo.value}
     // make post request
+    console.log(objectToPost)
     axios({
         method: `POST`,
         url: `/calculate`,
