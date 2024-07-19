@@ -9,12 +9,56 @@ app.use(express.static('server/public'));
 // calculation objects:
 let calculations = []
 
-
 // Here's a wonderful place to make some routes:
 
 // GET /calculations
+app.get(`/calculate`, (req,res) =>{
+  res.send(calculations)
+})
 
 // POST /calculations
+
+app.post(`/calculate`, (req, res) => {
+  let answer = eval(req.body.calculation)
+  console.log(answer)
+  let newCalculation = `${req.body.calculation} = ${answer}`
+  calculations.push({calculation: newCalculation, answer:answer})
+  res.sendStatus(201)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:
