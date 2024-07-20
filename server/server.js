@@ -20,9 +20,9 @@ app.get(`/calculations`, (req,res) =>{
 
 app.post(`/calculations`, (req, res) => {
   let calculation = req.body
-  let answer = calculate(calculation)
-  calculation.result = answer
-  calculations.push(calculation)
+  // let answer = calculate(calculation)
+  // calculation.result = answer
+  // calculations.push(calculation)
   console.log(calculation)
   res.sendStatus(201)
 })

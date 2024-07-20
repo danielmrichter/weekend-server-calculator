@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Server-Side Calculator</title>    
-    <script defer src="scripts/axios.js"></script>
-    <script defer src="scripts/client.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="./style/style.css">
-  </head>
-  <body>
-    <h1>Server-Side Calculator</h1>
 
-    <form data-testid="calculator">
+<head>
+  <meta charset="utf-8">
+  <title>Server-Side Calculator</title>
+  <script defer src="scripts/axios.js"></script>
+  <script defer src="scripts/client.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="./style/style.css">
+</head>
+
+<body>
+  <h1>Server-Side Calculator</h1>
+
+<!-- This is the code for the base goals. -->
+  
+  <!-- <form data-testid="calculator">
       <input id="numOne" data-testid="numOne" placeholder="First Number" type="number">
       <button onClick="plusButton(event)">+</button>
       <button onClick="minusButton(event)">-</button>
@@ -19,51 +23,53 @@
       <input id="numTwo" data-testid="numTwo" placeholder="Second Number" type="number">
       <button onClick="equalsButton(event)">=</button>
       <button onClick="clearButton(event)">C</button>
-    </form>
-
-
-    <!-- <form>
-      <input type="text" readonly>
-      <table>
-        <tbody>
-          <tr>
-            <td><button>7</button></td>
-            <td><button>8</button></td>
-            <td><button>9</button></td>
-            <td><button>+</button></td>
-          </tr>
-          <tr>
-            <td><button>4</button></td>
-            <td><button>5</button></td>
-            <td><button>6</button></td>
-            <td><button>-</button></td>
-          </tr>
-          <tr>
-            <td><button>1</button></td>
-            <td><button>2</button></td>
-            <td><button>3</button></td>
-            <td><button>*</button></td>
-          </tr>
-          <tr>
-            <td><button>0</button></td>
-            <td><button>.</button></td>
-            <td><button>=</button></td>
-            <td><button>/</button></td>
-          </tr>
-        </tbody>
-      </table>
     </form> -->
 
 
-    <section id="recentResult" data-testid="recentResult">
-      <!-- The most recent calculation result goes here. -->
-    </section>
+  <form>
+    <input type="text" readonly="true" id="currentCalc">
+    <table>
+      <tbody>
+        <tr>
+          <td><button onClick="sevenButton(event)">7</button></td>
+          <td><button onClick="eightButton(event)">8</button></td>
+          <td><button onClick="nineButton(event)">9</button></td>
+          <td><button onClick="plusButton(event)">+</button></td>
+        </tr>
+        <tr>
+          <td><button onClick="fourButton(event)">4</button></td>
+          <td><button onClick="fiveButton(event)">5</button></td>
+          <td><button onClick="sixButton(event)">6</button></td>
+          <td><button onClick="minusButton(event)">-</button></td>
+        </tr>
+        <tr>
+          <td><button onClick="oneButton(event)">1</button></td>
+          <td><button onClick="twoButton(event)">2</button></td>
+          <td><button onClick="threeButton(event)">3</button></td>
+          <td><button onClick="multiplyButton(event)">*</button></td>
+        </tr>
+        <tr>
+          <td><button onClick="zeroButton(event)">0</button></td>
+          <td><button onClick="dotButton(event)">.</button></td>
+          <td><button onClick="equalsButton(event)">=</button></td>
+          <td><button onClick="divideButton(event)">/</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
 
-    <section data-testid="resultHistory">
-      <ul id="resultHistory">
 
-      </ul>
-      <!-- The list of calculation results goes here. -->
-    </section>
-  </body>
+  <section data-testid="recentResult">
+    <!-- The most recent calculation result goes here. -->
+    <h2 id="recentResult"></h2>
+  </section>
+
+  <section data-testid="resultHistory">
+    <ul id="resultHistory">
+
+    </ul>
+    <!-- The list of calculation results goes here. -->
+  </section>
+</body>
+
 </html>
