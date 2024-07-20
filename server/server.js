@@ -12,21 +12,34 @@ let calculations = []
 // Here's a wonderful place to make some routes:
 
 // GET /calculations
-app.get(`/calculate`, (req,res) =>{
+app.get(`/calculations`, (req,res) =>{
   res.send(calculations)
 })
 
 // POST /calculations
 
-app.post(`/calculate`, (req, res) => {
-  let answer = eval(req.body.calculation)
-  console.log(answer)
-  let newCalculation = `${req.body.calculation} = ${answer}`
-  calculations.push({calculation: newCalculation, answer:answer})
+app.post(`/calculations`, (req, res) => {
+  let calculation = req.body
+  let answer = calculate(calculation)
+  calculation.result = answer
+  calculations.push(calculation)
+  console.log(calculation)
   res.sendStatus(201)
 })
-
-
+function calculate(objToCalc){
+  let numOne = objToCalc.numOne
+  let numTwo = objToCalc.numTwo
+  let operator = objToCalc.operator
+  if(operator === `+`){
+    return numOne + numTwo
+  } else if(operator === `-`){
+    return numOne - numTwo
+  } else if(operator === `*`){
+    return numOne * numTwo
+  } else if(operator === `/`){
+    return numOne / numTwo
+  }
+}
 
 
 

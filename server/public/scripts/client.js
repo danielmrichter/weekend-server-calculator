@@ -23,12 +23,12 @@ function equalsButton(event){
     event.preventDefault()
     //run a safety check here? Check stretch goal first
     // gather the data 
-    let objectToPost = {calculation: numOne.value + currentOperator + numTwo.value}
+    let objectToPost = {numOne: Number(numOne.value), numTwo: Number(numTwo.value), operator: currentOperator}
     // make post request
     console.log(objectToPost)
     axios({
         method: `POST`,
-        url: `/calculate`,
+        url: `/calculations`,
         data: objectToPost
     }).then((response) => {
         console.log(response)
@@ -47,7 +47,7 @@ function getCalculationsHistory(){
     //make get req
     axios({
         method: `GET`,
-        url: `/calculate`,
+        url: `/calculations`,
     }).then((response) => {
         //render the DOM
         let calculations = response.data
@@ -55,13 +55,14 @@ function getCalculationsHistory(){
         let resultHistory = document.getElementById(`resultHistory`)
         resultHistory.innerHTML = ``
         //set the most recent result
-        if(calculations.length > 0){
-        document.getElementById(`recentResult`).innerText = calculations[calculations.length-1].answer
+        if(calculations[calculations.length -1]){
+        document.getElementById(`recentResult`).innerText = Number(calculations[calculations.length-1].result)
         }
+        console.log(calculations[calculations.length -1])
         //loop for the rest, skipping the last one
-        for(let i=0; i<calculations.length-1;i++){
+        for(let i=0; i<calculations.length;i++){
             resultHistory.innerHTML += `
-            <li>${calculations[i].calculation}</li>`
+            <li>${calculations[i].numOne} ${calculations[i].operator} ${calculations[i].numTwo} = ${calculations[i].result}</li>`
         }
     })
 }
