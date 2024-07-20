@@ -56,7 +56,7 @@ function getCalculationsHistory(){
         resultHistory.innerHTML = ``
         //set the most recent result
         if(calculations[calculations.length -1]){
-        document.getElementById(`recentResult`).innerText = calculations[calculations.length-1].result
+        document.getElementById(`recentResult`).innerHTML = calculations[calculations.length-1].result.toString()
         }
         console.log(calculations[calculations.length -1])
         //loop for the rest, skipping the last one
