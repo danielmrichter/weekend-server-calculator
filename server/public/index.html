@@ -31,28 +31,28 @@
     <table>
       <tbody>
         <tr>
-          <td><button onClick="sevenButton(event)">7</button></td>
-          <td><button onClick="eightButton(event)">8</button></td>
-          <td><button onClick="nineButton(event)">9</button></td>
-          <td><button onClick="plusButton(event)">+</button></td>
+          <td><button onClick="numButton(event, 7)">7</button></td>
+          <td><button onClick="numButton(event, 8)">8</button></td>
+          <td><button onClick="numButton(event, 9)">9</button></td>
+          <td><button onClick="operButton(event, `+`)">+</button></td>
         </tr>
         <tr>
-          <td><button onClick="fourButton(event)">4</button></td>
-          <td><button onClick="fiveButton(event)">5</button></td>
-          <td><button onClick="sixButton(event)">6</button></td>
-          <td><button onClick="minusButton(event)">-</button></td>
+          <td><button onClick="numButton(event, 4)">4</button></td>
+          <td><button onClick="numButton(event, 5)">5</button></td>
+          <td><button onClick="numButton(event, 6)">6</button></td>
+          <td><button onClick="operButton(event, `-`)">-</button></td>
         </tr>
         <tr>
-          <td><button onClick="oneButton(event)">1</button></td>
-          <td><button onClick="twoButton(event)">2</button></td>
-          <td><button onClick="threeButton(event)">3</button></td>
-          <td><button onClick="multiplyButton(event)">*</button></td>
+          <td><button onClick="numButton(event, 1)">1</button></td>
+          <td><button onClick="numButton(event, 2)">2</button></td>
+          <td><button onClick="numButton(event, 3)">3</button></td>
+          <td><button onClick="operButton(event, `*`)">*</button></td>
         </tr>
         <tr>
-          <td><button onClick="zeroButton(event)">0</button></td>
-          <td><button onClick="dotButton(event)">.</button></td>
+          <td><button onClick="numButton(event, 0)">0</button></td>
+          <td><button onClick="numButton(event, `.`)">.</button></td>
           <td><button onClick="equalsButton(event)">=</button></td>
-          <td><button onClick="divideButton(event)">/</button></td>
+          <td><button onClick="operButton(event, `/`)">/</button></td>
         </tr>
       </tbody>
     </table>
