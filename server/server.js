@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 let PORT = process.env.PORT || 5000;
+const calculate = require(`./server_modules/calculator`)
 
 app.use(express.json());
 app.use(express.static('server/public'));
@@ -12,35 +13,27 @@ let calculations = []
 // Here's a wonderful place to make some routes:
 
 // GET /calculations
-app.get(`/calculations`, (req,res) =>{
+app.get(`/calculations`, (req, res) => {
   res.send(calculations)
+})
+
+app.get(`/history`, (req,res) => {
+  res.send(calculations[req.query.entry])
 })
 
 // POST /calculations
 
 app.post(`/calculations`, (req, res) => {
-  let calculation = req.body
-  let answer = calculate(calculation)
-  calculation.result = answer
-  calculations.push(calculation)
-  console.log(calculation)
+  let exprToEval = req.body
+  let newObj = calculate(exprToEval)
+  calculations.push(newObj)
   res.sendStatus(201)
 })
-function calculate(objToCalc){
-  let numOne = objToCalc.numOne
-  let numTwo = objToCalc.numTwo
-  let operator = objToCalc.operator
-  if(operator === `+`){
-    return numOne + numTwo
-  } else if(operator === `-`){
-    return numOne - numTwo
-  } else if(operator === `*`){
-    return numOne * numTwo
-  } else if(operator === `/`){
-    return numOne / numTwo
-  }
-}
 
+app.delete(`/calculations`, (req,res) =>{
+  calculations = []
+  res.sendStatus(200)
+})
 
 
 

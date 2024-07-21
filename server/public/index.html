@@ -1,69 +1,66 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Server-Side Calculator</title>    
-    <script defer src="scripts/axios.js"></script>
-    <script defer src="scripts/client.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="./style/style.css">
-  </head>
-  <body>
-    <h1>Server-Side Calculator</h1>
 
-    <form data-testid="calculator">
-      <input id="numOne" data-testid="numOne" placeholder="First Number" type="number">
-      <button onClick="plusButton(event)">+</button>
-      <button onClick="minusButton(event)">-</button>
-      <button onClick="multiplyButton(event)">*</button>
-      <button onClick="divideButton(event)">/</button>
-      <input id="numTwo" data-testid="numTwo" placeholder="Second Number" type="number">
-      <button onClick="equalsButton(event)">=</button>
-      <button onClick="clearButton(event)">C</button>
-    </form>
+<head>
+  <meta charset="utf-8">
+  <title>Server-Side Calculator</title>
+  <script defer src="scripts/axios.js"></script>
+  <script defer src="scripts/client.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="./style/style.css">
+</head>
 
-
-    <!-- <form>
-      <input type="text" readonly>
-      <table>
-        <tbody>
-          <tr>
-            <td><button>7</button></td>
-            <td><button>8</button></td>
-            <td><button>9</button></td>
-            <td><button>+</button></td>
-          </tr>
-          <tr>
-            <td><button>4</button></td>
-            <td><button>5</button></td>
-            <td><button>6</button></td>
-            <td><button>-</button></td>
-          </tr>
-          <tr>
-            <td><button>1</button></td>
-            <td><button>2</button></td>
-            <td><button>3</button></td>
-            <td><button>*</button></td>
-          </tr>
-          <tr>
-            <td><button>0</button></td>
-            <td><button>.</button></td>
-            <td><button>=</button></td>
-            <td><button>/</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </form> -->
+<body>
+  <h1>Server-Side Calculator</h1>
+  <form>
+    <input type="text" readonly="true" id="currentCalc">
+    <table>
+      <tbody>
+        <tr>
+          <td><button onClick="numButton(event, 7)">7</button></td>
+          <td><button onClick="numButton(event, 8)">8</button></td>
+          <td><button onClick="numButton(event, 9)">9</button></td>
+          <td><button onClick="operButton(event, `+`)">+</button></td>
+          <td><button onClick="backButton(event)">🔙</button></td>
+          
+        </tr>
+        <tr>
+          <td><button onClick="numButton(event, 4)">4</button></td>
+          <td><button onClick="numButton(event, 5)">5</button></td>
+          <td><button onClick="numButton(event, 6)">6</button></td>
+          <td><button onClick="operButton(event, `-`)">-</button></td>
+          <td><button onClick="clearButton(event)">C</button></td>
+        </tr>
+        <tr>
+          <td><button onClick="numButton(event, 1)">1</button></td>
+          <td><button onClick="numButton(event, 2)">2</button></td>
+          <td><button onClick="numButton(event, 3)">3</button></td>
+          <td><button onClick="operButton(event, `*`)">*</button></td>
+          <td><button onClick="paraButton(event, `left`)">(</button></td>
+        </tr>
+        <tr>
+          <td><button onClick="numButton(event, 0)">0</button></td>
+          <td><button onClick="numButton(event, `.`)">.</button></td>
+          <td><button onClick="equalsButton(event)">=</button></td>
+          <td><button onClick="operButton(event, `/`)">/</button></td>
+          <td><button onClick="paraButton(event, `right`)">)</button></td>
+          
+        </tr>
+      </tbody>
+    </table>
+  </form>
 
 
-    <section id="recentResult" data-testid="recentResult">
-      <!-- The most recent calculation result goes here. -->
-    </section>
+  <section data-testid="recentResult">
+    <!-- The most recent calculation result goes here. -->
+    <h2 id="recentResult"></h2>
+  </section>
+  <button onClick="deleteHistory()">Delete Result History</button>
+  <section data-testid="resultHistory">
+    <ul id="resultHistory">
 
-    <section data-testid="resultHistory">
-      <ul id="resultHistory">
+    </ul>
+    <!-- The list of calculation results goes here. -->
+  </section>
+</body>
 
-      </ul>
-      <!-- The list of calculation results goes here. -->
-    </section>
-  </body>
 </html>
