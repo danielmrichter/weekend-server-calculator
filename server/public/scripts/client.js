@@ -16,8 +16,11 @@ function operButton(event, oper){
 // Equals
 function equalsButton(event) {
     event.preventDefault()
-    console.log(currentCalc.value)
-    // //run a safety check here? Check stretch goal first
+    // //run a safety check here, make sure values are filled in.
+    // does not work rn.
+    // if(safetyCheck() === false){
+    //     return
+    // }
     // // gather the data 
     let objectToPost = {toCalculate: currentCalc.value}
     // make post request
@@ -34,10 +37,30 @@ function equalsButton(event) {
     currentCalc.setAttribute('readonly', true);
     })
 }
+//Other
 function clearButton(event) {
     event.preventDefault()
+    currentCalc.removeAttribute('readonly');
     currentCalc.value = ``
+    currentCalc.setAttribute('readonly', true);
 }
+function paraButton(event, side){
+    event.preventDefault()
+    currentCalc.removeAttribute('readonly');
+    if(side === `left`){
+        currentCalc.value += `(`
+    } else{
+        currentCalc.value += `)`
+    }
+    currentCalc.setAttribute('readonly', true);
+}
+function backButton(event){
+    event.preventDefault()
+    currentCalc.removeAttribute('readonly');
+    newValue = currentCalc.value.slice(0,currentCalc.value.length-1)
+    currentCalc.value = newValue
+    currentCalc.setAttribute('readonly', true);
+}  
 function getCalculationsHistory() {
     //make get req
     axios({
@@ -55,8 +78,90 @@ function getCalculationsHistory() {
         console.log(calculations[calculations.length - 1])
         for (let i = 0; i < calculations.length; i++) {
             resultHistory.innerHTML += `
-            <li>${calculations[i].toCalculate} = ${calculations[i].result}</li>`
+            <li onClick="historyEntryClick(event, ${i})">${calculations[i].toCalculate} = ${calculations[i].result}</li>`
         }
     })
+}
+function historyEntryClick(e, index){
+    e.preventDefault()
+    axios({
+        method: `GET`,
+        url: `/history`,
+        params: {entry: index}
+    }).then((response) => {
+        currentCalc.removeAttribute('readonly');
+        currentCalc.value = response.data.toCalculate
+        currentCalc.setAttribute('readonly', true);
+    })
+}
+function deleteHistory(){
+    if(window.confirm(`Are you sure?`)){
+        axios({
+            method: `DELETE`,
+            url: `/calculations`
+        }).then((response) => {
+            if(response.status === 200){
+            document.getElementById(`resultHistory`).innerHTML = ``
+            document.getElementById(`recentResult`).innerHTML = ``
+        }
+        })
+    }
+}
+function safetyCheck(){
+    //grab the value
+    let exprToCheck = currentCalc.value.split(``)
+    // we need to know if there's operators in it, so set a variable to track that
+    let containsOperators = false
+    let safe = false
+    // we'll need to check parenthesees later, so declare them now.
+    let leftParaCount = 0
+    let rightParaCount = 0
+    // find the operators and use them as a reference point
+        // loop through the current expression in the calculator
+    for(let char in exprToCheck){
+        // check if it's NOT a number, if it is we ignore it for now.
+        if(!Number (exprToCheck[char])){
+            // check if it's an operator
+            if (exprToCheck[char] === (`+`) || exprToCheck[char] === (`-`) || exprToCheck[char] === (`*`) || exprToCheck[char] === (`/`)){
+                console.log(`found an operator!`)
+                // now we know if it does, so we can set this to true
+                containsOperators = true
+                // now check if the operator contains numbers on either side.
+                if(Number(exprToCheck[char-2]) && Number(exprToCheck[char+2])){
+                   safe = true
+                   // if it doesn't, return false
+                } else{
+                    console.log(char)
+                    console.log(`the values we checked:`, Number(exprToCheck[char+2]), Number(exprToCheck[char-2]))
+                    window.alert(`Error! Numbers must be on either side of the operator.`)
+                    return false
+                }
+             // now back to the original IF statement, check if there's a valid
+            // number of parenthesees (how spell that word)      
+            } else if(exprToCheck[char] === `(`){
+                leftParaCount ++
+            } else if(exprToCheck[char] === `)`){
+                rightParaCount ++
+                // we don't do bigInt here, kay?
+            } else if(exprToCheck[char] === `e`){
+                window.alert(`We don't do bigInt here, mkay?`)
+                return false
+            }
+        }
+    }
+    // now, we do our checks. Need it to be safe, valid number of parenthesees,
+    // and contains at least one operator.
+    if(leftParaCount !== rightParaCount){
+        window.alert(`Invalid number of parentheses.`)
+        return false
+    }else if(!containsOperators){
+        window.alert(`Must contain at least one operator.`)
+        return false
+    }else if(!safe){
+        window.alert(`Error. Double check Input.`)
+        return false
+    }
+    return true
+    // ... all of this for a calculator. Yikes.
 }
 getCalculationsHistory()

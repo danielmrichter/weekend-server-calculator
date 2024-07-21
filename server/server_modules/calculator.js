@@ -1,8 +1,7 @@
-function calculate(objToCalc) {
-    // grab the expression to evaluate
-    let exprToEval = objToCalc.toCalculate
-    console.log(exprToEval)
-    // seperate the toCalculate key into an array, with the numbers being an index and operators a separate index
+const e = require("express")
+
+function calculate(exprToEval) {
+    // seperate the toCalculate key into an array to work with a bit more easily
     let seperatedExpr = exprToEval.split(` `)
     // do PEMDAS check here
     // an array to stick around for the next part:
@@ -49,11 +48,33 @@ function calculate(objToCalc) {
       }
     }
       // add the result to the object
-    let returnObj = objToCalc
-    returnObj.result = result
-    console.log(returnObj)
-    return returnObj
+    return result
     // push the object to the array
   }
+function filterObjectForCalculator(objToEval){
+  // grab the expression we need to evaluate
+  let exprToEval = objToEval.toCalculate
+  // filter it for parantheses
+  while(exprToEval.includes(`(`)){
+    // find the left one
+    let leftPara = exprToEval.search(/\(/i)
+    // find the right one
+    let rightPara = exprToEval.search(/\)/i)
+    // make a substring from them, excluding the paras themselves
+    let paratToEval = exprToEval.substring(leftPara+1, rightPara)
+    //  run it through the calculate function
+    let evaledPara = calculate(paratToEval)
+    // find where it needs to go in the original expression
+    let splitExpr = exprToEval.split(``)
+    splitExpr.splice(leftPara, (rightPara-leftPara+1), evaledPara)
+    exprToEval = splitExpr.join(``)
+  }
+    // run the original expression through the calculate function
+  let result = calculate(exprToEval)
+  //bundle it up and ship it
+  let objToReturn = objToEval
+  objToReturn.result = result
+  return objToReturn
+  }
 
-  module.exports = calculate
+  module.exports = filterObjectForCalculator

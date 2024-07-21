@@ -17,17 +17,23 @@ app.get(`/calculations`, (req, res) => {
   res.send(calculations)
 })
 
+app.get(`/history`, (req,res) => {
+  res.send(calculations[req.query.entry])
+})
+
 // POST /calculations
 
 app.post(`/calculations`, (req, res) => {
   let exprToEval = req.body
-  console.log(req.body)
   let newObj = calculate(exprToEval)
   calculations.push(newObj)
   res.sendStatus(201)
 })
 
-
+app.delete(`/calculations`, (req,res) =>{
+  calculations = []
+  res.sendStatus(200)
+})
 
 
 
