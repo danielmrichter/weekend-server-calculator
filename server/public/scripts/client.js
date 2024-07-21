@@ -72,7 +72,7 @@ function getCalculationsHistory() {
         resultHistory.innerHTML = ``
         //set the most recent result
         if (calculations[calculations.length - 1]) {
-            document.getElementById(`recentResult`).innerHTML = calculations[calculations.length - 1].result.toString()
+            document.getElementById(`recentResult`).innerHTML = calculations[calculations.length - 1].result
         }
         for (let i = 0; i < calculations.length; i++) {
             resultHistory.innerHTML += `
