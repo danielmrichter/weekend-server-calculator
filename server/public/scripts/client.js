@@ -17,10 +17,9 @@ function operButton(event, oper){
 function equalsButton(event) {
     event.preventDefault()
     // //run a safety check here, make sure values are filled in.
-    // does not work rn.
-    // if(safetyCheck() === false){
-    //     return
-    // }
+    if(safetyCheck() === false){
+        return
+    }
     // // gather the data 
     let objectToPost = {toCalculate: currentCalc.value}
     // make post request
@@ -109,7 +108,7 @@ function deleteHistory(){
 }
 function safetyCheck(){
     //grab the value
-    let exprToCheck = currentCalc.value.split(``)
+    let exprToCheck = currentCalc.value
     // we need to know if there's operators in it, so set a variable to track that
     let containsOperators = false
     let safe = false
@@ -118,32 +117,32 @@ function safetyCheck(){
     let rightParaCount = 0
     // find the operators and use them as a reference point
         // loop through the current expression in the calculator
-    for(let char in exprToCheck){
+    for(let i=0; i < exprToCheck.length; i++){
         // check if it's NOT a number, if it is we ignore it for now.
-        if(!Number (exprToCheck[char])){
+        if(!Number (exprToCheck[i])){
             // check if it's an operator
-            if (exprToCheck[char] === (`+`) || exprToCheck[char] === (`-`) || exprToCheck[char] === (`*`) || exprToCheck[char] === (`/`)){
+            if (exprToCheck[i] === (`+`) || exprToCheck[i] === (`-`) || exprToCheck[i] === (`*`) || exprToCheck[i] === (`/`)){
                 console.log(`found an operator!`)
                 // now we know if it does, so we can set this to true
                 containsOperators = true
                 // now check if the operator contains numbers on either side.
-                if(Number(exprToCheck[char-2]) && Number(exprToCheck[char+2])){
+                if(Number(exprToCheck[i-2]) && Number(exprToCheck[i+2])){
                    safe = true
                    // if it doesn't, return false
                 } else{
-                    console.log(char)
-                    console.log(`the values we checked:`, Number(exprToCheck[char+2]), Number(exprToCheck[char-2]))
+                    console.log(i)
+                    console.log(`the values we checked:`, Number(exprToCheck[i+2]), Number(exprToCheck[i-2]))
                     window.alert(`Error! Numbers must be on either side of the operator.`)
                     return false
                 }
              // now back to the original IF statement, check if there's a valid
             // number of parenthesees (how spell that word)      
-            } else if(exprToCheck[char] === `(`){
+            } else if(exprToCheck[i] === `(`){
                 leftParaCount ++
-            } else if(exprToCheck[char] === `)`){
+            } else if(exprToCheck[i] === `)`){
                 rightParaCount ++
                 // we don't do bigInt here, kay?
-            } else if(exprToCheck[char] === `e`){
+            } else if(exprToCheck[i] === `e`){
                 window.alert(`We don't do bigInt here, mkay?`)
                 return false
             }
