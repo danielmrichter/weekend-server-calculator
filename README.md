@@ -1,6 +1,4 @@
-# Project Name
-
-Weekend Server Calculator!
+# Weekend Server Calculator!
 
 ## Description
 
