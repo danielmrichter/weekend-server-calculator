@@ -23,6 +23,6 @@ the Back button will delete the last character in the calculator.
 The input field for the calculator is readonly, you currently cannot type in your desired expression. Use the buttons I gave you! It took me a long time to make them work!
 
 There is an alternate test suite for this project, since the base one no longer is compatible. Use npm run test:altclient. 
-**Currently incomplete. First five tests are updated to be working, but the rest are incomplete. 
+**Currently incomplete. The final two tests are currently not working, and will always fail.
 
 Please report any errors or bugs, and don't forget to have a nice day 😁!
