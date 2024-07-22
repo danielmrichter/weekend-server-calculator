@@ -8,7 +8,7 @@
 // commented out a bunch of the repetitive tests, because time.
 
 // Testing Library Stuff:
-const { fireEvent, getByText, getByRole, getByPlaceholderText, getByTestId } = require('@testing-library/dom')
+const { fireEvent, getByText, getByRole, getByPlaceholderText, getByTestId , getByDisplayValue } = require('@testing-library/dom')
 require('@testing-library/jest-dom')
 const { JSDOM } = require('jsdom')
 
@@ -130,7 +130,7 @@ describe(`Client-Side Tests:`, () => {
     nineButton.click()
 
     // ** Check that it inputed correctly!
-    // expect(getByText(inputNum, '1 + 39')).toBeInTheDocument() 
+    expect(getByDisplayValue(container, '1 + 39')).toBeInTheDocument()
 
     // Click the '=' button:
     const equalsButton = getByRole(container, 'button', { name: '=' })
@@ -178,6 +178,10 @@ describe(`Client-Side Tests:`, () => {
 // that I'm using for serverside. Not sure how to standardise this.
     expect(['1 + 39']).toContain(reqBody.toCalculate)
   })
+
+// all of these tests check similar things, and would be rewritten
+// similarly to the test above
+
 
 //   it(`Subtraction: A POST request's data is an object that contains the correct values for numOne, numTwo, and operator`, async () => {
 //     // Select the inputs and an operator button:
